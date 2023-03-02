@@ -2,11 +2,14 @@
 using AleDiazChatRoom.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Localization;
 
 namespace AleDiazChatRoom.Pages
 {
     public partial class ChatRoom
     {
+   
+       
         // flag to indicate chat status
         private bool _isChatting = false;
 
