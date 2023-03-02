@@ -2,14 +2,11 @@
 using AleDiazChatRoom.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.Localization;
 
 namespace AleDiazChatRoom.Pages
 {
     public partial class ChatRoom
     {
-   
-       
         // flag to indicate chat status
         private bool _isChatting = false;
 
@@ -91,9 +88,15 @@ namespace AleDiazChatRoom.Pages
                 _isChatting = false;
             }
         }
+        private async Task StockMessageDetected(string message)
+        {
 
+        }
         private async Task SendAsync(string message)
         {
+            if (message.Contains("/stock=")) 
+            {
+            }
             if (_isChatting && !string.IsNullOrWhiteSpace(message))
             {
                 await _hubConnection.SendAsync("Broadcast", _username, message);
