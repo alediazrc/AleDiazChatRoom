@@ -5,6 +5,5 @@
         public Task Broadcast(string username, string message);
         public Task OnConnectedAsync();
         public Task OnDisconnectedAsync(Exception e);
-
     }
 }

@@ -12,5 +12,11 @@ namespace ChatRoomMessages.Controllers
         {
             return "Im a result";
         }
+
+        [HttpPost]
+        public string StoredAMessage( string StockCode)
+        {
+            return "Im a result";
+        }
     }
 }

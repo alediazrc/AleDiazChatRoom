@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Threading;
 using System.Globalization;
-
+using AleDiazChatRoom.Constant;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<ChatHubService>();
+builder.Services.AddSingleton<IBotService,ChatHubService>();
 
 
 var app = builder.Build();
@@ -34,7 +35,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapBlazorHub();
     endpoints.MapFallbackToPage("/_Host");
-    endpoints.MapHub<ChatHubService>(ChatHubService.HubUrl);
+    endpoints.MapHub<ChatHubService>(ChatRoomConstants.HubUrl);
 });
 
 

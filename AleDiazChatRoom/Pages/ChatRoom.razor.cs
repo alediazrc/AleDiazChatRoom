@@ -1,4 +1,5 @@
 ﻿using AleDiazChatRoom.ChatObjects;
+using AleDiazChatRoom.Constant;
 using AleDiazChatRoom.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -7,6 +8,8 @@ namespace AleDiazChatRoom.Pages
 {
     public partial class ChatRoom
     {
+        [Inject]
+        protected  IBotService BotService { get; set; }
         // flag to indicate chat status
         private bool _isChatting = false;
 
@@ -46,7 +49,7 @@ namespace AleDiazChatRoom.Pages
                 // Create the chat client
                 string baseUrl = navigationManager.BaseUri;
 
-                _hubUrl = baseUrl.TrimEnd('/') + ChatHubService.HubUrl;
+                _hubUrl = baseUrl.TrimEnd('/') + ChatRoomConstants.HubUrl;
 
                 _hubConnection = new HubConnectionBuilder()
                     .WithUrl(_hubUrl)
@@ -88,14 +91,12 @@ namespace AleDiazChatRoom.Pages
                 _isChatting = false;
             }
         }
-        private async Task StockMessageDetected(string message)
-        {
-
-        }
+       
         private async Task SendAsync(string message)
         {
             if (message.Contains("/stock=")) 
             {
+                await BotService.MessagesToBot(message);
             }
             if (_isChatting && !string.IsNullOrWhiteSpace(message))
             {

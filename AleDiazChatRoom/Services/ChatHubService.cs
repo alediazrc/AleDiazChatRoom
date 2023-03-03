@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 namespace AleDiazChatRoom.Services
 {
-    public class ChatHubService : Hub
+    public class ChatHubService : Hub, IChatHubService, IBotService
     {
-        public const string HubUrl = "/chat";
         public async Task Broadcast(string username, string message)
         {
             await Clients.All.SendAsync("Broadcast", username, message);
@@ -22,6 +22,27 @@ namespace AleDiazChatRoom.Services
         {
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
             await base.OnDisconnectedAsync(e);
+        }
+        public async Task MessagesToBot(string message)
+        {
+            try
+            {
+                var splitedMessage = message.Split(',').ToList();
+                using (var fs = new FileStream(@"C:\temp\test.csv", FileMode.Create, FileAccess.ReadWrite))
+                {
+                    using (TextWriter tw = new StreamWriter(fs))
+                    {
+                        tw.Write(message);
+                        tw.Flush();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var exceptionMessage = ex.Message;
+                throw;
+            }
+            
         }
     }
 }
