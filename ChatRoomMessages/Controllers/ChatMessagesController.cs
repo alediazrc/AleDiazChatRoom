@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ChatRoomMessages.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatRoomMessages.Controllers
@@ -14,7 +15,7 @@ namespace ChatRoomMessages.Controllers
         }
 
         [HttpPost]
-        public string StoredAMessage( string StockCode)
+        public string StoredAMessage( string StockCode, Message message)
         {
             return "Im a result";
         }

@@ -5,16 +5,19 @@ using Microsoft.AspNetCore.Components.Web;
 using System.Threading;
 using System.Globalization;
 using AleDiazChatRoom.Constant;
+using Microsoft.EntityFrameworkCore;
+using AleDiazChatRoom.ChatObjects;
+using AleDiazChatRoom.DAL;
+using Microsoft.Extensions.Configuration;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<ChatHubService>();
 builder.Services.AddSingleton<IBotService,ChatHubService>();
-
-
+builder.Services.AddDbContextFactory<ApplicationDbContext>((DbContextOptionsBuilder options) => options.UseSqlServer("Source=(localdb)\\MSSQLLocalDB;Database=ChatRoomProject;Initial Catalog=AuthorDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

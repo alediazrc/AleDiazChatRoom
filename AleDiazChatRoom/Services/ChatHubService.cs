@@ -23,19 +23,11 @@ namespace AleDiazChatRoom.Services
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
             await base.OnDisconnectedAsync(e);
         }
-        public async Task MessagesToBot(string message)
+        public async Task SendMessagesToBot(string message)
         {
             try
             {
-                var splitedMessage = message.Split(',').ToList();
-                using (var fs = new FileStream(@"C:\temp\test.csv", FileMode.Create, FileAccess.ReadWrite))
-                {
-                    using (TextWriter tw = new StreamWriter(fs))
-                    {
-                        tw.Write(message);
-                        tw.Flush();
-                    }
-                }
+                
             }
             catch (Exception ex)
             {
@@ -43,6 +35,10 @@ namespace AleDiazChatRoom.Services
                 throw;
             }
             
+        }
+        public async Task GetMessagesFromBot(string message)
+        {
+
         }
     }
 }

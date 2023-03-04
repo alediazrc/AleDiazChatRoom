@@ -23,7 +23,7 @@ namespace AleDiazChatRoom.Pages
         private string _newMessage;
 
         // list of messages in chat
-        private List<Message> _messages = new List<Message>();
+        private List<MessageDto> _messages = new List<MessageDto>();
 
         private string _hubUrl;
         private HubConnection _hubConnection;
@@ -72,7 +72,7 @@ namespace AleDiazChatRoom.Pages
         {
             bool isMine = name.Equals(_username, StringComparison.OrdinalIgnoreCase);
 
-            _messages.Add(new Message(name, message, isMine));
+            _messages.Add(new MessageDto(name, message, isMine));
 
             // Inform blazor the UI needs updating
             InvokeAsync(StateHasChanged);
@@ -96,7 +96,7 @@ namespace AleDiazChatRoom.Pages
         {
             if (message.Contains("/stock=")) 
             {
-                await BotService.MessagesToBot(message);
+                await BotService.SendMessagesToBot(message);
             }
             if (_isChatting && !string.IsNullOrWhiteSpace(message))
             {
