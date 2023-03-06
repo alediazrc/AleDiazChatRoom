@@ -1,15 +1,7 @@
-using AleDiazChatRoom.Data;
 using AleDiazChatRoom.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using System.Threading;
-using System.Globalization;
 using AleDiazChatRoom.Constant;
 using Microsoft.EntityFrameworkCore;
-using AleDiazChatRoom.ChatObjects;
 using AleDiazChatRoom.DAL;
-using Microsoft.Extensions.Configuration;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
