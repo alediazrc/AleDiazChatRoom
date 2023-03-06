@@ -12,6 +12,7 @@
         public string Username { get; set; }
         public string Body { get; set; }
         public bool Mine { get; set; }
+        public bool IsCommand { get; set; }
 
         public bool IsNotice => Body.StartsWith("[Notice]");
 

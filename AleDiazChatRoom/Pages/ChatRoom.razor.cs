@@ -10,6 +10,9 @@ namespace AleDiazChatRoom.Pages
     {
         [Inject]
         protected  IBotService BotService { get; set; }
+        [Inject]
+        protected IChatHubService  ChatService { get; set; }
+        public MessageDto SentMessage { get; set; }
         // flag to indicate chat status
         private bool _isChatting = false;
 
@@ -26,8 +29,17 @@ namespace AleDiazChatRoom.Pages
         private List<MessageDto> _messages = new List<MessageDto>();
 
         private string _hubUrl;
+        private bool isCommand { get; set; }
         private HubConnection _hubConnection;
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                _messages = await ChatService.GetMessages();
+            }
+            await base.OnAfterRenderAsync(firstRender);
+        }
+      
         public async Task Chat()
         {
             // check username is valid
@@ -42,9 +54,6 @@ namespace AleDiazChatRoom.Pages
                 // Start chatting and force refresh UI.
                 _isChatting = true;
                 await Task.Delay(1);
-
-                // remove old messages if any
-                _messages.Clear();
 
                 // Create the chat client
                 string baseUrl = navigationManager.BaseUri;
@@ -91,19 +100,28 @@ namespace AleDiazChatRoom.Pages
                 _isChatting = false;
             }
         }
-       
-        private async Task SendAsync(string message)
+        private void CommandMessageDetected(string message)
         {
-            if (message.Contains("/stock=")) 
-            {
-                await BotService.SendMessagesToBot(message);
-            }
+            BotService.SendMessagesToBot(message);
+        }
+       
+        private async Task SendAsync(string message, bool isCommand =false)
+        {
             if (_isChatting && !string.IsNullOrWhiteSpace(message))
             {
-                await _hubConnection.SendAsync("Broadcast", _username, message);
-
+                await _hubConnection.SendAsync("Broadcast", isCommand? "AleBot" : _username ,message);
+                if(_newMessage != null)
+                await ChatService.SaveMessage(_messages.Last());
                 _newMessage = string.Empty;
+                
+               
+                if (message.Contains("/stock="))
+                {
+                    await SendAsync("Message recieved", true);
+                    CommandMessageDetected(message);
+                }
             }
+          
         }
 
         
