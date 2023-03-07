@@ -3,6 +3,8 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio EchoBot v4.18.1
 
+using AleBot.ChatObjects;
+using AleBot.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
@@ -19,20 +21,23 @@ namespace AleBot.Controllers
     {
         private readonly IBotFrameworkHttpAdapter _adapter;
         private readonly IBot _bot;
+        private IChatBotService _service { get; set; }
 
-        public BotController(IBotFrameworkHttpAdapter adapter, IBot bot)
+        public BotController(IBotFrameworkHttpAdapter adapter, IBot bot, IChatBotService chatBotService)
         {
             _adapter = adapter;
             _bot = bot;
+            _service= chatBotService;
         }
 
         [HttpPost]
         [HttpGet]
-        public async Task PostAsync()
+        public async Task PostAsync( string CsvMessage)
         {
             // Delegate the processing of the HTTP POST to the adapter.
             // The adapter will invoke the bot.
-            await _adapter.ProcessAsync(Request, Response, _bot);
+            await _service.SaveMessage(CsvMessage);
         }
+       
     }
 }

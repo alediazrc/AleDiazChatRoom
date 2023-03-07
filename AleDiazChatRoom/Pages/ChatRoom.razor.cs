@@ -109,7 +109,7 @@ namespace AleDiazChatRoom.Pages
         {
             if (_isChatting && !string.IsNullOrWhiteSpace(message))
             {
-                await _hubConnection.SendAsync("Broadcast", isCommand? "AleBot" : _username ,message);
+                await _hubConnection.SendAsync("Broadcast", isCommand? ChatRoomConstants.BotUserName : _username ,message);
                 if(_newMessage != null)
                 await ChatService.SaveMessage(_messages.Last());
                 _newMessage = string.Empty;

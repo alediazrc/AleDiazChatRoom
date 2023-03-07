@@ -1,4 +1,5 @@
 ﻿using ChatRoomMessages.ChatObjects;
+using ChatRoomMessages.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -31,12 +32,16 @@ namespace ChatRoomMessages.DAL
             }
         }
 
-        public async Task<int> SaveMessage(Message message)
+        public async Task<int> SaveMessage(string StockCode)
         {
             try
             {
                 using (var context = _contextFactory.CreateDbContext())
                 {
+                    Message message = new Message();
+                    message.CreateDate = DateTime.UtcNow;
+                    message.Username = ChatConstants.BotUserName;
+                    message.IsCommand = true;
                     var existingUser = context.Users.FirstOrDefault(x => x.Name == message.Username);
                     if (existingUser == null)
                     {
@@ -45,7 +50,7 @@ namespace ChatRoomMessages.DAL
 
                     }
                     message.UserId = existingUser.Id;
-                    message.CreateDate = DateTime.UtcNow;
+                    context.Messages.Add(message);
                     var result = await context.SaveChangesAsync();
                     return result;
                 }

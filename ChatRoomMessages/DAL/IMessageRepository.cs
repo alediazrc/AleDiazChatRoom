@@ -5,6 +5,6 @@ namespace ChatRoomMessages.DAL
     public interface IMessageRepository
     {
         public Task<List<Message>> GetMessages();
-        public Task<int> SaveMessage(Message message);
+        public Task<int> SaveMessage(string message);
     }
 }

@@ -24,12 +24,12 @@ namespace ChatRoomMessages.Controllers
         }
 
         [HttpPost]
-        public IActionResult StoredAMessage( string StockCode, Message message)
+        public IActionResult SaveMessage( string StockCode)
         {
             try
             {
-                message.IsCommand = true;
-                chatService.SaveMessage(message);
+                
+                chatService.SaveMessage(StockCode);
                 return Ok("Saved");
 
             }

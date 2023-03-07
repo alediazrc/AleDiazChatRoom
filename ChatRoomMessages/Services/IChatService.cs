@@ -5,6 +5,6 @@ namespace ChatRoomMessages.Services
     public interface IChatService
     {
         public Task<List<Message>> GetMessages();
-        public Task<int> SaveMessage(Message message);
+        public Task<int> SaveMessage(string StockCode);
     }
 }

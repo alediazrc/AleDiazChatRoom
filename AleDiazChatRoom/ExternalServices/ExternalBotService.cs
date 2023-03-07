@@ -1,4 +1,6 @@
-﻿namespace AleDiazChatRoom.ExternalServices
+﻿using AleDiazChatRoom.Constant;
+
+namespace AleDiazChatRoom.ExternalServices
 {
     public class ExternalBotService : IExternalBotService
     {
@@ -7,18 +9,21 @@
             throw new NotImplementedException();
         }
 
-        public Task SendMessagesToBot(string message)
+        public async Task<HttpResponseMessage> SendMessagesToBot(string message)
         {
-            var splitedMessage = message.Split(',').ToList();
-            using (var fs = new FileStream(@"C:\temp\test.csv", FileMode.Create, FileAccess.ReadWrite))
+            try
             {
-                using (TextWriter tw = new StreamWriter(fs))
-                {
-                    tw.Write(message);
-                    tw.Flush();
-                }
+                var csv = ChatRoomConstants.BaseCsvUrl + message + ChatRoomConstants.HeaderCsvUrl;
+                var url = ChatRoomConstants.BotUrl + csv;
+                using var client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsJsonAsync(
+                    url, csv);
+                return response;
             }
-            return Task.CompletedTask;
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

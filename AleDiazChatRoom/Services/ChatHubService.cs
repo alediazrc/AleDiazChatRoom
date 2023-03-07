@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AleDiazChatRoom.ChatObjects;
 using AleDiazChatRoom.DAL;
+using AleDiazChatRoom.ExternalServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 
@@ -12,9 +13,11 @@ namespace AleDiazChatRoom.Services
     {
         [Inject]
         private IMessageRepository messageRepository{get;set;}
-        public ChatHubService(IMessageRepository messageRepository)
+        private IExternalBotService botService{get;set;}
+        public ChatHubService(IMessageRepository messageRepository, IExternalBotService externalBotService)
         {
             this.messageRepository = messageRepository;
+            this.botService = externalBotService;
         }
 
         public async Task Broadcast(string username, string message)
@@ -37,7 +40,7 @@ namespace AleDiazChatRoom.Services
         {
             try
             {
-                
+                await botService.SendMessagesToBot(message);
             }
             catch (Exception ex)
             {
