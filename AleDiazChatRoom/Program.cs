@@ -13,6 +13,7 @@ builder.Services.AddSingleton<IBotService,ChatHubService>();
 builder.Services.AddSingleton<IChatHubService,ChatHubService>();
 builder.Services.AddSingleton<IMessageRepository,MessageRepository>();
 builder.Services.AddSingleton<IExternalBotService,ExternalBotService>();
+builder.Services.AddSingleton<IRabitMQ,RabitMQ>();
 builder.Services.AddDbContextFactory<ApplicationDbContext>((DbContextOptionsBuilder options) => options.UseSqlServer("Source=(localdb)\\MSSQLLocalDB;Database=ChatRoomProject;Initial Catalog=ChatRoomProject;Trusted_Connection=True;MultipleActiveResultSets=true"));
 builder.Services.AddAutoMapper(typeof(ChatRoomProfile));
 var app = builder.Build();

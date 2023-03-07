@@ -36,11 +36,11 @@ namespace AleDiazChatRoom.Services
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
             await base.OnDisconnectedAsync(e);
         }
-        public async Task SendMessagesToBot(string message)
+        public async Task<string> SendMessagesToBot(string message)
         {
             try
             {
-                await botService.SendMessagesToBot(message);
+                return await botService.SendMessagesToBot(message);
             }
             catch (Exception ex)
             {

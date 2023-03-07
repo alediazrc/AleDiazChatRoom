@@ -1,5 +1,6 @@
 ﻿using AleBot.ChatObjects;
 using AleBot.Constant;
+using Microsoft.Bot.Builder;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -8,7 +9,12 @@ namespace AleBot.Services
 {
     public class ChatBotService : IChatBotService
     {
-        public async Task<int> SaveMessage(string message)
+        private readonly IRabitMQ _rabitMQ;
+        public ChatBotService( IRabitMQ rabitMQ)
+        {
+            _rabitMQ= rabitMQ;
+        }
+        public async Task<HttpResponseMessage> SaveMessage(string message)
         {
 
             var substring= message.TrimStart('=');
@@ -18,8 +24,8 @@ namespace AleBot.Services
             using var client = new HttpClient();
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 url, StockCode);
-            var messageREsponse = response.Content.ReadAsStringAsync();
-            return 1;
+            _rabitMQ.SendMessage(StockCode + " quote is $93.42 per share");
+            return response;
         }
     }
 }

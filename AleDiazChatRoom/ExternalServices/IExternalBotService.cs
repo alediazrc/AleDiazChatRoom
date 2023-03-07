@@ -2,7 +2,7 @@
 {
     public interface IExternalBotService
     {
-        public Task<HttpResponseMessage> SendMessagesToBot(string message);
+        public Task<string> SendMessagesToBot(string message);
         public Task GetMessagesFromBot(string message);
     }
 }

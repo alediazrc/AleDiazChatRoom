@@ -100,9 +100,14 @@ namespace AleDiazChatRoom.Pages
                 _isChatting = false;
             }
         }
-        private void CommandMessageDetected(string message)
+        private async Task CommandMessageDetected(string message)
         {
-            BotService.SendMessagesToBot(message);
+            var messageRecieved = await BotService.SendMessagesToBot(message);
+            if (messageRecieved != null)
+            {
+                await _hubConnection.SendAsync("Broadcast", ChatRoomConstants.BotUserName, messageRecieved);
+
+            }
         }
        
         private async Task SendAsync(string message, bool isCommand =false)
@@ -118,9 +123,10 @@ namespace AleDiazChatRoom.Pages
                 if (message.Contains("/stock="))
                 {
                     await SendAsync("Message recieved", true);
-                    CommandMessageDetected(message);
+                    await CommandMessageDetected(message);
                 }
             }
+            
           
         }
 

@@ -38,6 +38,7 @@ namespace AleBot
             // Create the Bot Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
             services.AddSingleton<IChatBotService, ChatBotService>();
+            services.AddSingleton<IRabitMQ, RabitMQ>();
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddTransient<IBot, Bots.EchoBot>();

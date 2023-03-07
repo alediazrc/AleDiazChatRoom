@@ -4,12 +4,18 @@ namespace AleDiazChatRoom.ExternalServices
 {
     public class ExternalBotService : IExternalBotService
     {
+        private IRabitMQ rabitMQ { get; set; }
+        public ExternalBotService(IRabitMQ rabitMQ)
+        {
+            this.rabitMQ = rabitMQ;
+        }
+
         public Task GetMessagesFromBot(string message)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<HttpResponseMessage> SendMessagesToBot(string message)
+        public async Task<string> SendMessagesToBot(string message)
         {
             try
             {
@@ -19,7 +25,8 @@ namespace AleDiazChatRoom.ExternalServices
                 using var client = new HttpClient();
                 HttpResponseMessage response = await client.PostAsJsonAsync(
                     url, csv);
-                return response;
+                
+                return rabitMQ.GetMessages();
             }
             catch (Exception)
             {
