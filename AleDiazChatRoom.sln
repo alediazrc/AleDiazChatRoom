@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleDiazChatRoom", "AleDiazC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatRoomMessages", "ChatRoomMessages\ChatRoomMessages.csproj", "{ECCB8A34-F735-4A35-962C-4FD3788EECC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AleBot", "AleBot\AleBot.csproj", "{723EED59-3DB6-40D2-940E-1A64F05F5393}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleBot", "AleBot\AleBot.csproj", "{723EED59-3DB6-40D2-940E-1A64F05F5393}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ChatSetUp", "ChatSetUp\ChatSetUp.vdproj", "{58C74718-0C4D-4A5F-850F-CAFAD18D758F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,8 @@ Global
 		{723EED59-3DB6-40D2-940E-1A64F05F5393}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{723EED59-3DB6-40D2-940E-1A64F05F5393}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{723EED59-3DB6-40D2-940E-1A64F05F5393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C74718-0C4D-4A5F-850F-CAFAD18D758F}.Debug|Any CPU.ActiveCfg = Debug
+		{58C74718-0C4D-4A5F-850F-CAFAD18D758F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
