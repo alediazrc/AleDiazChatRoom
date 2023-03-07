@@ -13,6 +13,7 @@ namespace AleDiazChatRoom.ExternalServices
         {
             try
             {
+                message = message.Substring(message.IndexOf("=")+1);
                 var csv = ChatRoomConstants.BaseCsvUrl + message + ChatRoomConstants.HeaderCsvUrl;
                 var url = ChatRoomConstants.BotUrl + csv;
                 using var client = new HttpClient();
