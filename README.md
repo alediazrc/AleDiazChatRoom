@@ -59,8 +59,8 @@ Tech Stack:
       - ChatBotMessages
 
 
-1- Execute setup.exe file that was uploaded in SetUpProject
-    - In case you have a problem, all packages you need are in TechStack section.
+1- Execute setup.exe file that was uploaded in SetUpProject inside Debug folder.
+    (In case you have a problem, all packages you need are in TechStack section)
     
 2- Open AlediazChatRoom as startup project
 
